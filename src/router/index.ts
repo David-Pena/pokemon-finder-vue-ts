@@ -1,25 +1,18 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
-import Login from '../views/Login.vue';
-import SignUp from '../views/SignUp.vue';
 
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'Login',
-        component: Login
-    },
-    {
-        path: '/sign-up',
-        name: 'SignUp',
-        component: SignUp
-    },
-    {
-        path: '/home',
         name: 'Home',
-        component: Home
+        component: () => import('../views/Home.vue'),
+        children: [
+            {
+                path: 'about/:id',
+                name: 'About',
+                component: () => import('../views/About.vue')
+            },
+        ]
     },
-    
 ];
 
 const router = createRouter({
